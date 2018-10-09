@@ -34,7 +34,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
         name = MainMod.MODNAME,
         version = MainMod.MODVERSION,
         guiFactory = "com.blogspot.jabelarminecraft." + MainMod.MODID + ".client.gui.GuiFactory",
-        acceptedMinecraftVersions = "[1.12]",
+        acceptedMinecraftVersions = "[1.11]",
         acceptableRemoteVersions = "*",
         clientSideOnly = true,
         updateJSON = "https://raw.githubusercontent.com/jabelar/EnchantmentGlint-1.12.2/master/src/main/resources/versionChecker.json"

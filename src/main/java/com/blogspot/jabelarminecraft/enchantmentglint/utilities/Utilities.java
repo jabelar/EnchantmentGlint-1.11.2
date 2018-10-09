@@ -62,7 +62,7 @@ public class Utilities
     public static Item setItemName(Item parItem, String parItemName)
     {
         parItem.setRegistryName(parItemName);
-        parItem.setTranslationKey(parItemName);
+        parItem.setUnlocalizedName(parItemName);
         return parItem;
     }
 
@@ -78,7 +78,7 @@ public class Utilities
     public static Block setBlockName(Block parBlock, String parBlockName)
     {
         parBlock.setRegistryName(parBlockName);
-        parBlock.setTranslationKey(parBlockName);
+        parBlock.setUnlocalizedName(parBlockName);
         return parBlock;
     }
 

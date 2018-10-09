@@ -67,7 +67,7 @@ public class HexEntry extends IntegerEntry
 
     
     @Override
-    public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partial)
+    public void func_180790_a(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected)
     {
         boolean isChanged = isChanged();
 
@@ -86,12 +86,14 @@ public class HexEntry extends IntegerEntry
         btnUndoChanges.x = owningEntryList.scrollBarX - 44;
         btnUndoChanges.y = y;
         btnUndoChanges.enabled = enabled() && isChanged;
-        btnUndoChanges.drawButton(mc, mouseX, mouseY, partial);
+        btnUndoChanges.drawButtonForegroundLayer(mouseX, mouseY);
+//        btnUndoChanges.drawButton(mc, mouseX, mouseY, partial);
 
         btnDefault.x = owningEntryList.scrollBarX - 22;
         btnDefault.y = y;
         btnDefault.enabled = enabled() && !isDefault();
-        btnDefault.drawButton(mc, mouseX, mouseY, partial);
+        btnDefault.drawButtonForegroundLayer(mouseX, mouseY);
+//        btnDefault.drawButton(mc, mouseX, mouseY, partial);
 
         if (tooltipHoverChecker == null)
             tooltipHoverChecker = new HoverChecker(y, y + slotHeight, x, owningScreen.entryList.controlX - 8, 800);
