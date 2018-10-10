@@ -65,7 +65,7 @@ public class ModRenderItem extends RenderItem
             else
             {
                 renderModel(model, stack);
-
+                
                 if (stack.hasEffect())
                 {
                     renderEffect(model, ClientProxy.getColorForEnchantment(EnchantmentHelper.getEnchantments(stack)));
@@ -174,4 +174,87 @@ public class ModRenderItem extends RenderItem
         return textureManager;
     }
 
+//    private void func_175036_a(IBakedModel p_175036_1_, ItemStack p_175036_2_)
+//    {
+//        this.func_175045_a(p_175036_1_, -1, p_175036_2_);
+//    }
+//
+// 
+//    private void func_175035_a(IBakedModel p_175035_1_, int p_175035_2_)
+//    {
+//        this.func_175045_a(p_175035_1_, p_175035_2_, ItemStack.EMPTY);
+//    }
+//
+//    private void func_175045_a(IBakedModel p_175045_1_, int p_175045_2_, ItemStack p_175045_3_)
+//    {
+//        Tessellator tessellator = Tessellator.getInstance();
+//        VertexBuffer vertexbuffer = tessellator.getBuffer();
+//        vertexbuffer.begin(7, DefaultVertexFormats.ITEM);
+//
+//        for (EnumFacing enumfacing : EnumFacing.values())
+//        {
+//            this.func_175032_a(vertexbuffer, p_175045_1_.getQuads((IBlockState)null, enumfacing, 0L), p_175045_2_, p_175045_3_);
+//        }
+//
+//        this.func_175032_a(vertexbuffer, p_175045_1_.getQuads((IBlockState)null, (EnumFacing)null, 0L), p_175045_2_, p_175045_3_);
+//        tessellator.draw();
+//    }
+//    
+//    private void func_175032_a(VertexBuffer p_175032_1_, List<BakedQuad> p_175032_2_, int p_175032_3_, ItemStack p_175032_4_)
+//    {
+//        boolean flag = p_175032_3_ == -1 && !p_175032_4_.isEmpty();
+//        int i = 0;
+//
+//        for (int j = p_175032_2_.size(); i < j; ++i)
+//        {
+//            BakedQuad bakedquad = p_175032_2_.get(i);
+//            int k = p_175032_3_;
+//
+//            if (flag && bakedquad.hasTintIndex())
+//            {
+//                k = this.itemColors.colorMultiplier(p_175032_4_, bakedquad.getTintIndex());
+//
+//                if (EntityRenderer.anaglyphEnable)
+//                {
+//                    k = TextureUtil.anaglyphColor(k);
+//                }
+//
+//                k = k | -16777216;
+//            }
+//
+//            net.minecraftforge.client.model.pipeline.LightUtil.renderQuadColor(p_175032_1_, bakedquad, k);
+//        }
+//    }
+//    
+//
+//    private void func_180451_a(IBakedModel p_180451_1_)
+//    {
+//        GlStateManager.depthMask(false);
+//        GlStateManager.depthFunc(514);
+//        GlStateManager.disableLighting();
+//        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_COLOR, GlStateManager.DestFactor.ONE);
+//        this.textureManager.bindTexture(RES_ITEM_GLINT);
+//        GlStateManager.matrixMode(5890);
+//        GlStateManager.pushMatrix();
+//        GlStateManager.scale(8.0F, 8.0F, 8.0F);
+//        float f = Minecraft.getSystemTime() % 3000L / 3000.0F / 8.0F;
+//        GlStateManager.translate(f, 0.0F, 0.0F);
+//        GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
+//        this.func_175035_a(p_180451_1_, -8372020);
+//        GlStateManager.popMatrix();
+//        GlStateManager.pushMatrix();
+//        GlStateManager.scale(8.0F, 8.0F, 8.0F);
+//        float f1 = Minecraft.getSystemTime() % 4873L / 4873.0F / 8.0F;
+//        GlStateManager.translate(-f1, 0.0F, 0.0F);
+//        GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
+//        this.func_175035_a(p_180451_1_, -8372020);
+//        GlStateManager.popMatrix();
+//        GlStateManager.matrixMode(5888);
+//        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+//        GlStateManager.enableLighting();
+//        GlStateManager.depthFunc(515);
+//        GlStateManager.depthMask(true);
+//        this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+//    }
+//
 }

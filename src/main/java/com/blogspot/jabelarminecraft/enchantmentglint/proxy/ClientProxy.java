@@ -40,9 +40,18 @@ import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.entity.RenderPotion;
+import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.tileentity.RenderItemFrame;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.item.EntityEnderEye;
+import net.minecraft.entity.item.EntityEnderPearl;
+import net.minecraft.entity.item.EntityExpBottle;
+import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityPigZombie;
@@ -51,7 +60,11 @@ import net.minecraft.entity.monster.EntityStray;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.EntityZombieVillager;
+import net.minecraft.entity.projectile.EntityEgg;
+import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -62,7 +75,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @EventBusSubscriber(value = Side.CLIENT, modid = MainMod.MODID)
 public class ClientProxy implements IProxy
 {
-    public static ModRenderItem modRenderItem; // used to provide custom enchantment glint color
+    public static RenderItem modRenderItem; // used to provide custom enchantment glint color
     public static Field modelManager = ReflectionHelper.findField(Minecraft.class, "modelManager", "field_175617_aL");
     public static Field renderItem = ReflectionHelper.findField(Minecraft.class, "renderItem", "field_175621_X");
     public static Field itemRenderer = ReflectionHelper.findField(ItemRenderer.class, "itemRenderer", "field_178112_h");
@@ -79,7 +92,7 @@ public class ClientProxy implements IProxy
         replaceRenderers();       
     }
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void replaceRenderers()
     {
         Minecraft mc = Minecraft.getMinecraft();
@@ -101,7 +114,16 @@ public class ClientProxy implements IProxy
         {
             e.printStackTrace();
         }
-        
+        mc.getRenderManager().entityRenderMap.put(EntityItemFrame.class, new RenderItemFrame(mc.getRenderManager(), modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntitySnowball.class, new RenderSnowball(mc.getRenderManager(), Items.SNOWBALL, modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityEnderPearl.class, new RenderSnowball(mc.getRenderManager(), Items.ENDER_PEARL, modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityEnderEye.class, new RenderSnowball(mc.getRenderManager(), Items.ENDER_EYE, modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityEgg.class, new RenderSnowball(mc.getRenderManager(), Items.EGG, modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityPotion.class, new RenderPotion(mc.getRenderManager(), modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityExpBottle.class, new RenderSnowball(mc.getRenderManager(), Items.EXPERIENCE_BOTTLE, modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityFireworkRocket.class, new RenderSnowball(mc.getRenderManager(), Items.FIREWORKS, modRenderItem));
+        mc.getRenderManager().entityRenderMap.put(EntityItem.class, new RenderEntityItem(mc.getRenderManager(), modRenderItem));
+
         mc.getRenderManager().entityRenderMap.put(EntityItem.class, new RenderEntityItem(mc.getRenderManager(), modRenderItem));
         mc.getRenderManager().entityRenderMap.put(EntitySkeleton.class, new ModRenderSkeleton(mc.getRenderManager()));
         mc.getRenderManager().entityRenderMap.put(EntityWitherSkeleton.class, new ModRenderWitherSkeleton(mc.getRenderManager()));
@@ -112,6 +134,8 @@ public class ClientProxy implements IProxy
         mc.getRenderManager().entityRenderMap.put(EntityGiantZombie.class, new ModRenderGiantZombie(mc.getRenderManager(), 6.0F));
         mc.getRenderManager().entityRenderMap.put(EntityPigZombie.class, new ModRenderPigZombie(mc.getRenderManager()));
         mc.getRenderManager().entityRenderMap.put(EntityArmorStand.class, new ModRenderArmorStand(mc.getRenderManager()));
+    
+        ((IReloadableResourceManager) mc.getResourceManager()).registerReloadListener(modRenderItem);
     }
      
     public static int getColorForEnchantment(Map<Enchantment, Integer> enchMap)
